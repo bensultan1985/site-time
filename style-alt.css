@@ -1,0 +1,349 @@
+body {
+    margin: 0px;
+    min-width: 600px;
+}
+
+#add-grid {
+    display: block;
+}
+
+
+#add-grid-sister {
+    /* position: absolute; */
+    display: block;
+    border: solid;
+    border-color: rgb(153, 223, 255);
+    border-color: rgb(63, 130, 255);
+    /* border-color: purple; */
+    border-radius: 12px;
+    background-color: rgba(204, 236, 252, 0.932);
+    /* background-color: rgba(219, 192, 219, 0.911); */
+    padding: 10px;
+    box-shadow: 2px 3px 4px rgb(197, 197, 197);
+    box-sizing: border-box;
+    /* width: 90vw; */
+    min-height: 80vh;
+    margin: auto;
+}
+
+#add-grid-site {
+    /* position: absolute; */
+    display: block;
+    border: solid;
+    border-color: rgb(153, 223, 255);
+    border-color: rgb(63, 130, 255);
+    border-color: purple;
+    border-radius: 12px;
+    background-color: rgb(240, 250, 255);
+    background-color: rgba(219, 192, 219, 0.911);
+    padding: 10px;
+    box-shadow: 2px 3px 4px rgb(197, 197, 197);
+    box-sizing: border-box;
+    /* width: 90vw; */
+    min-height: 80vh;
+    margin: auto;
+}
+
+#add-grid-container-sister {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 300px));
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    /* grid-template-areas:
+      ; */
+    border-width: 2px;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    padding: 20px;
+
+  }
+
+  .noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
+  
+  #add-grid-container-site {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 300px));
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    /* grid-template-areas:
+      ; */
+    border-width: 2px;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    padding: 20px;
+
+  }
+
+
+.grid-item {
+    box-sizing: border-box;
+    border: solid;
+    background: white;
+    border-color: rgb(153, 223, 255);
+    border-color: rgb(63, 130, 255);
+    /* border-color: purple; */
+    border-width: 2px;
+    border-radius: 12px;
+    min-height: 40px;
+    min-width: 150px;
+    min-height: 100px;
+    min-width: 300px;
+    padding-top: 35px;
+    text-align: center;
+    color: rgb(0, 102, 255);
+    /* color: rgb(83, 179, 224); */
+    /* color: rgb(63, 130, 255); */
+    /* color: purple; */
+    cursor: pointer;
+}
+
+.grid-item-selected {
+    box-sizing: border-box;
+    border-width: 3.5px;
+    background: rgb(79, 211, 255);
+    background: rgb(179, 236, 255);
+    background: rgba(255, 229, 84, 0.644);
+    /* background: rgba(173, 216, 230, 0.699); */
+    /* color: white; */
+}
+
+.grid-item:hover {
+    border-width: 3.5px;
+    background: rgb(231, 213, 231);
+    background: rgb(240, 230, 240);
+    background: blue;
+    /* background: rgba(219, 236, 241, 0.74); */
+    background: rgba(237, 250, 255, 0.822);
+}
+.grid-item:active {
+    box-sizing: border-box;
+    border-width: 3.5px;
+    background: rgb(79, 211, 255);
+    background: rgb(179, 236, 255);
+    background: rgb(255, 229, 84, 0.644);
+    /* background: rgba(173, 216, 230, 0.699); */
+    background: rgb(179, 236, 255);
+}
+
+.grid-item-selected:hover {
+    box-sizing: border-box;
+    border-width: 3.5px;
+    background: rgb(79, 211, 255);
+    background: rgb(179, 236, 255);
+    background: rgb(255, 229, 84);
+    /* background: rgba(173, 216, 230); */
+    /* color: white; */
+}
+
+
+#add-grid-button-container-sister {
+    text-align: right;
+}
+
+.grid-button {
+    all: unset;
+    display: inline-block;
+    min-height: 30px;
+    height: 30px;
+    border: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: rgb(97, 97, 97);
+    padding: 0px 40px;
+    margin: 5px;
+    background: white;
+    cursor: pointer;
+}
+
+.unclickable {
+    background: rgba(128, 128, 128, 0.185);
+    width: 100vw;
+    height: 100vh;
+}
+
+.trigger_popup_fricc {
+    all: unset;
+    /* position: absolute; */
+    /* background: rgba(255, 192, 203, 0.39); */
+    display: block;
+    z-index: 11;
+}
+
+
+.hover_bkgr_fricc{
+    background:rgba(129, 129, 129, 0.144);
+    cursor: default;
+    display:none;
+    height:100%;
+    position:absolute;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:11;
+    height: 100%;
+    width: 100%;
+}
+.hover_bkgr_fricc .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align: top;
+}
+.hover_bkgr_fricc > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    top: 40px;
+    border-radius: 8px;
+    padding: 15px 5%;
+}
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+.trigger_popup_fricc-sub {
+    all: unset;
+    /* position: absolute; */
+    /* background: rgba(255, 192, 203, 0.39); */
+    width: auto;
+    display: inline-block;
+    z-index: 11;
+    cursor: pointer;
+    font-size: 20px;
+    /* margin: 20px; */
+    font-weight: bold;
+}
+
+
+.hover_bkgr_fricc-sub{
+
+}
+.hover_bkgr_fricc-sub .helper{
+    display:inline-block;
+    vertical-align: top;
+}
+.hover_bkgr_fricc-sub {
+    /* box-shadow: 10px 10px 60px #555; */
+    display: inline-block;
+    height: 0px;
+    /* max-width: 551px;
+    min-height: 100px; */
+    /* vertical-align: middle; */
+    position: absolute;
+    top: 40px;
+    /* border-radius: 8px; */
+    /* padding: 15px 5%; */
+    background:rgba(129, 129, 129, 0.144);
+    cursor:default;
+    display:none;
+    /* position:absolute; */
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:11;
+}
+.popupCloseButton-sub {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.popupCloseButton-sub:hover {
+    background-color: #ccc;
+}
+
+#data-grid-container {
+    margin: 10px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 4fr .5fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    /* max-width: 1000px; */
+  }
+
+.grid-head {
+    background-color: rgba(219, 192, 219, 0.911);
+    border: solid;
+    border-width: 1px;
+    padding: 2px 10px;;
+    margin-top: 20px;
+}
+
+.data-grid-item {
+    max-width: 100%;
+    border: solid;
+    border-top: none;
+    border-width: 1px;
+    padding: 8px;
+}
+
+.data-grid-edit {
+    vertical-align: bottom;
+    line-height: 5rem;
+}
+
+.edit-button {
+    
+    margin: auto;
+    vertical-align: middle;
+    height: 50px;
+    width: 100px;
+    font-size: 14px;
+}
