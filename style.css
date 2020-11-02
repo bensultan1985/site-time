@@ -71,12 +71,10 @@ body {
   }
   
   #add-grid-container-site {
-    width: 100%;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 300px));
     grid-template-rows: 1fr;
-    gap: 0px 0px;
     /* grid-template-areas:
       ; */
     border-width: 2px;
@@ -109,6 +107,28 @@ body {
     cursor: pointer;
 }
 
+.grid-item-site {
+    box-sizing: border-box;
+    border: solid;
+    background: white;
+    border-color: rgb(153, 223, 255);
+    border-color: rgb(63, 130, 255);
+    border-color: purple;
+    border-width: 2px;
+    border-radius: 12px;
+    min-height: 40px;
+    min-width: 150px;
+    min-height: 100px;
+    min-width: 300px;
+    padding-top: 35px;
+    text-align: center;
+    color: rgb(0, 102, 255);
+    color: rgb(83, 179, 224);
+    color: rgb(63, 130, 255);
+    color: purple;
+    cursor: pointer;
+}
+
 .grid-item-selected {
     box-sizing: border-box;
     border-width: 3.5px;
@@ -116,6 +136,41 @@ body {
     background: rgb(179, 236, 255);
     background: rgba(255, 229, 84, 0.644);
     /* background: rgba(173, 216, 230, 0.699); */
+    /* color: white; */
+}
+
+.grid-item-selected-site {
+    box-sizing: border-box;
+    border-width: 3.5px;
+    background: rgb(79, 211, 255);
+    background: rgb(179, 236, 255);
+    background: rgba(255, 229, 84, 0.644);
+    /* background: rgba(173, 216, 230, 0.699); */
+    /* color: white; */
+}
+
+.grid-item-site:hover {
+    border-width: 3.5px;
+    background: rgb(231, 213, 231);
+    background: rgb(240, 230, 240);
+    /* background: rgba(219, 236, 241, 0.74); */
+}
+.grid-item-site:active {
+    box-sizing: border-box;
+    border-width: 3.5px;
+    background: rgb(79, 211, 255);
+    background: rgb(179, 236, 255);
+    background: rgb(255, 229, 84, 0.644);
+    /* background: rgba(173, 216, 230, 0.699); */
+}
+
+.grid-item-selected-site:hover {
+    box-sizing: border-box;
+    border-width: 3.5px;
+    background: rgb(79, 211, 255);
+    background: rgb(179, 236, 255);
+    background: rgb(255, 229, 84);
+    /* background: rgba(173, 216, 230); */
     /* color: white; */
 }
 
@@ -145,8 +200,14 @@ body {
 }
 
 
-#add-grid-button-container-sister {
-    text-align: right;
+#add-grid-button-container-site {
+
+}
+
+#add-grid-button-container-main {
+}
+
+add-grid-button-container-sister {
 }
 
 .grid-button {
@@ -422,4 +483,48 @@ body {
 
 #add-site-button-container {
     height: 50px;
+}
+
+.large-button {
+    height: 50px;
+    width: 80px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-right: 60px;
+}
+
+#add-site-site {
+    width: 100%;
+}
+
+#add-grid-site {
+    width: 100%;
+}
+
+#add-grid-head-site {
+    position: sticky;
+    text-align: center;
+    /* display: block; */
+    background: rgba(188, 147, 211, 0.83);
+    /* width: 100%; */
+    /* height: 50px; */
+    border-radius: 25px;
+    /* padding: 20px; */
+    /* float: left; */
+    color: white;
+    padding: 2px;
+}
+
+#add-grid-head-sister {
+    position: sticky;
+    text-align: center;
+    /* display: block; */
+    background: rgba(188, 147, 211, 0.83);
+    /* width: 100%; */
+    /* height: 50px; */
+    border-radius: 25px;
+    /* padding: 20px; */
+    /* float: left; */
+    color: white;
+    padding: 2px;
 }
