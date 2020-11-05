@@ -2,6 +2,8 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const fetch = require("node-fetch");
+const util = require('util');
+
 
 // const server = http.createServer((req, res) => {
 //     if (req.url === '/') {
@@ -161,7 +163,7 @@ const tempObj = {
 			"Name": "Oklahoma",
 			"ID": "2347595"
 		}, {
-			"Name": "Philadelphias",
+			"Name": "Philadelphia",
 			"ID": "2471217"
 		}, {
 			"Name": "Phoenix",
@@ -378,7 +380,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "Deloitte",
@@ -392,7 +394,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "StVincent",
@@ -401,7 +403,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "Route66",
@@ -410,7 +412,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "TheUniversityClub_Lithium",
@@ -419,7 +421,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "GenericSeniorHealthcare",
@@ -428,7 +430,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "GenericHospitality",
@@ -437,7 +439,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "HiltonLaRomana",
@@ -446,7 +448,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "GenericEnterprise",
@@ -455,7 +457,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "Newsday",
@@ -464,7 +466,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "Nickelodeon",
@@ -473,7 +475,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "HotelBlu2",
@@ -482,7 +484,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "LHSC",
@@ -536,7 +538,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "SmartLiving_A",
@@ -545,7 +547,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},	
 		{
 			"Site": "RadissonBarbados",
@@ -572,14 +574,14 @@ const tempObj = {
 			"SiteCities": ["Elmsford"],
 			"OtherCities": ["Boston", "Charlotte", "Columbus", "Chicago", "London", "Los Angeles", "Moscow", "Mexico City", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Tokyo"]
 		},	
 		{
 			"Site": "SignageDemo",
 			"SiteCities": ["Elmsford"],
 			"OtherCities": ["Boston", "Charlotte", "Columbus", "Chicago", "London", "Los Angeles", "Moscow", "Mexico City", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Tokyo"]
 		},	
 		{
 			"Site": "Hyatt Ziva",
@@ -673,7 +675,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "SunscapeResorts",
@@ -682,7 +684,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "DreamsResorts",
@@ -691,7 +693,7 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		},
 		{
 			"Site": "RogersMRC",
@@ -708,13 +710,25 @@ const tempObj = {
 				"Geneva", "HongKong", "Johannesburg", "London", "Los Angeles", "Macau", "Moscow", "Mexico City",
 				"Nairobi", "New Delhi", "New York", "Paris", "San Francisco", "Shanghai", "Singapore", "Sydney",
 				"Taipei", "Washington, DC", "Zurich", "Detroit", "Houston", "Indianapolis", "Jacksonville", "Las Vegas", "Memphis",
-				"Oklahoma", "Philadelphias", "Phoenix", "Seattle", "Auckland", "Tokyo"]
+				"Oklahoma", "Philadelphia", "Phoenix", "Seattle", "Auckland", "Tokyo"]
 		}
-	]
+	],
+	"Unincorporated Cities": []
 }
 
 app.get('/getdata', async (req, res) => {
     res.send(tempObj);
     console.log('request made successfully');
-    console.log(tempObj)
-    })
+	})
+	
+app.post('/postdata', async (req, res) => {
+	console.log(req.body)
+	tempObj.Sites.push({
+		Site: req.body.site,
+		SiteCities: [req.body.siteCity],
+		OtherCities: req.body.otherCities
+	})
+	console.log('request made successfully');
+	res.send('200')
+	console.log(util.inspect(tempObj, {showHidden: false, depth: null}))
+	})

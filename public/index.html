@@ -22,13 +22,21 @@
           <span class="helper"></span>
           <div>
               <div id="add-grid">
-                <div id="select-head" style="margin-bottom: 20px">Create Site Profile:</div>
+                <div id="select-head" style="margin-bottom: 20px"><h3 id="create-edit-title"></h3></div>
         <div>
-            <div>
-                add site: 
-                <a id="trigger-site" class="trigger_popup_fricc-sub">
-                <button id="add-site-button" class="noselect" style="cursor:pointer">+</button>
-            </a>
+            <div class="input-container">
+                <div>
+                    <label for="new-site-input" id="new-site-input-id" class="input-label">*Site Name:</label>
+                    <input id="new-site-input" type="text" class="input-class">
+                </div>
+                <br>
+                <div>
+                    <label for="new-city-input" id="new-city-input-id" class="input-label">*City:</label>
+                    <input id="new-city-input" type="text" class="input-class">
+                </div>
+                <!-- <a id="trigger-site" class="trigger_popup_fricc-sub">
+                <button id="add-site-button" class="noselect" style="cursor:pointer">+</button> -->
+            <!-- </a> -->
             <div id="selected-site"></div>
         </div>
         <div>
@@ -58,6 +66,18 @@
                   </div>
                   <div id="add-grid-container-sister"></div>
                       <div id="add-grid-foot-sister">
+                          <div id="create-city-container">
+                              <div>Don't see a city? Enter cities manually:
+                              <button id="open-push-new-cities">Enter New Cities</button>
+                            </div>
+                              <div id="push-new-cities" style="display: none;">
+                                <div><br>Enter New Cities (separate names by comma):</div>
+                                <input id="new-cities-input">
+                                <button id ="close-new-cities-button">cancel</button>
+                                <button id ="save-new-cities-button">save</button>
+                              </div>
+
+                          </div>
                           <div id="add-grid-button-container-sister">
                               <button id="add-grid-cancel-button-sister" class="grid-button close-sub large-button">cancel</button>
                               <button id="add-grid-save-button-sister" class="grid-button close-sub large-button">save</button>

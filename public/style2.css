@@ -13,6 +13,7 @@ body {
     border-color: rgb(153, 223, 255);
     border-color: rgb(63, 130, 255);
     border-color: purple;
+    border-color: rgb(51, 91, 138);
     border-radius: 12px;
     background-color: rgb(240, 250, 255);
     background-color: rgba(219, 192, 219, 0.911);
@@ -21,6 +22,7 @@ body {
     box-sizing: border-box;
     min-height: 80vh;
     margin: auto;
+    background: rgba(149, 184, 180, 0.89);
 }
 
 #add-grid-site {
@@ -42,16 +44,17 @@ body {
 }
 
 #add-grid-container-sister {
-    width: 100%;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 300px));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 200px));
     grid-template-rows: 1fr;
-    gap: 0px 0px;
+    /* grid-template-areas:
+      ; */
     border-width: 2px;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     padding: 20px;
+
 
   }
 
@@ -92,7 +95,7 @@ body {
     min-height: 40px;
     min-width: 150px;
     min-height: 100px;
-    min-width: 300px;
+    min-width: 200px;
     padding-top: 35px;
     text-align: center;
     color: rgb(0, 102, 255);
@@ -100,6 +103,9 @@ body {
     color: rgb(63, 130, 255);
     color: purple;
     cursor: pointer;
+    background: rgba(255, 255, 255, 0.911);
+    border-color: rgb(51, 91, 138);
+    color: rgb(51, 91, 138);
 }
 
 .grid-item-site {
@@ -132,7 +138,7 @@ body {
     border-width: 3.5px;
     background: rgb(79, 211, 255);
     background: rgb(179, 236, 255);
-    background: rgba(255, 229, 84, 0.644);
+    background: rgba(255, 229, 84, 0.788);
     /* background: rgba(173, 216, 230, 0.699); */
     /* color: white; */
 }
@@ -178,9 +184,14 @@ body {
 }
 
 .grid-item:hover {
-    border-width: 3.5px;
+    border-width: 4px;
     background: rgb(231, 213, 231);
     background: rgb(240, 230, 240);
+    background: rgb(228, 228, 205);
+    background: rgb(255, 255, 219);
+    /* border-color: rgb(255, 229, 84, 0.644); */
+    /* border-color: rgb(17, 138, 219); */
+    font-size: 17px;
     /* background: rgba(219, 236, 241, 0.74); */
 }
 .grid-item:active {
@@ -406,15 +417,20 @@ body {
 }
 
 .sm-box {
-    /* border: solid; */
+    border: solid;
+    display: inline-block;
     border-width: 2px;
     margin: auto;
     margin-bottom: 6px;
     margin-top: 6px;
     padding: 3px;
     max-width: 250px;
-    border-color: rgb(51, 91, 138);;
+    border-color: rgb(51, 91, 138);
     color: rgb(51, 91, 138);
+    border-radius: 25px;
+    border-width: 1.5px;
+    margin-right: 4px;
+    padding: 5px 15px;
 }
 
 #selected-site {
@@ -497,4 +513,50 @@ body {
     /* float: left; */
     color: white;
     padding: 2px;
+}
+
+.input-container {
+    width: 50%;
+    text-align: left;
+    line-height: 30px;
+    margin: auto;
+}
+
+.input-label {
+    display: inline;
+    /* text-align: left; */
+    text-align: right;
+    /* float: left; */
+    /* width: 400px; */
+}
+
+.input-class {
+    display: inline;
+    text-align: right;
+    float: right;
+    border: solid;
+    border-width: 2px;
+    margin: auto;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    padding: 3px;
+    max-width: 250px;
+    border-color: rgb(51, 91, 138);
+    color: rgb(51, 91, 138);
+    border-radius: 25px;
+    border-width: 1.5px;
+    margin-right: 4px;
+    padding: 5px 15px;
+}
+
+#create-city-container {
+    border: solid;
+    border-radius: 25px;
+    max-width: 600px;
+    min-width: 450px;
+    padding: 10px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.911);
+    border-color: rgb(51, 91, 138);
+    color: rgb(51, 91, 138);
 }
