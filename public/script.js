@@ -1,5 +1,5 @@
 
-
+//DOM Objects
 let addGridContainerSister = document.getElementById('add-grid-container-sister');
 let addGridContainerSite = document.getElementById('add-grid-container-site');
 let dataGrid = document.getElementById('data-grid-container')
@@ -14,46 +14,52 @@ let addGridCancelButton = document.getElementById('add-grid-cancel-button')
 let createEditTitle = document.getElementById('create-edit-title');
 
 
-
+//Init grid's alphabetical order data
 siteNameHead.name = 'site-desc';
 cityNameHead.name = 'city-asc';
 siteNameHead.addEventListener('click', () => {makeDataGrid(siteNameHead.name)});
 cityNameHead.addEventListener('click', () => {makeDataGrid(cityNameHead.name)});
 
+//Temporary Objects and Arrays to store site information
 const sisterData = {};
 let citySortedArray = [];
-const siteData = {}
-const siteSortedArray = []
+const siteData = {};
+const siteSortedArray = [];
 let allCitiesArray = [];
-
-//todo: alphabetize otherCities before http post
-const addData = {
-    site: '',
-    woeid: '',
-    siteCity: '',
-    otherCities: []
-}
 
 const woeid = {};
 let tempSite = '';
 let tempCity = '';
 let tempOtherCities = [];
 
+//todo: alphabetize otherCities before http post
+const addData = {
+    site: '',
+    woeid: '',
+    siteCity: '',
+    otherCities: [],
+    originSite: '',
+    edit: false,
+}
+
+//POST JSON data
 const postData = async (data) => {
     const response = await fetch('/postdata', {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(data)
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
     });
     return response.json();
   }
+
+//Save & Cancel Button Functions
 
 addGridSaveButtonSister.addEventListener('click', async () => {
     let containerElement = document.createElement('div');
@@ -79,11 +85,16 @@ addGridSaveButtonSite.addEventListener('click', async () => {
 });
 
 addGridSaveButton.addEventListener('click', async () => {
+    addData.site = document.getElementById('new-site-input').value;
+    addData.siteCity = document.getElementById('new-city-input').value;
+    console.log(addData, 'final')
     await postData(addData).then(res => console.log(res))
     makeDataGrid('site-desc')
     addData.site = '';
     addData.siteCity = '';
     addData.otherCities = [];
+    addData.originSite = '';
+    addData.edit = false;
     document.getElementById('new-site-input').value = '';
     document.getElementById('new-city-input').value = '';
     selectedOtherCities.innerHTML = '';
@@ -193,6 +204,9 @@ const updateIdAndCity = async (getname) => {
 //     });
 // };
 
+
+//Data grid sort functions
+
 const makeSort = (sortStyle, arr) => {
     if (sortStyle == 'site-desc') {
         arr = arr.sort((a,b) => {
@@ -239,12 +253,15 @@ const makeSort = (sortStyle, arr) => {
     return arr;
 };
 
-const openEdit = (element) => {
+const openEdit = (element, isEdit) => {
     addData.site = element.Site;
     addData.siteCity = element.SiteCities;
     addData.otherCities = element.OtherCities;
-    console.log(element)
+    addData.edit = true;
+    addData.originSite = element.Site;
+    console.log(addData)
     createEditTitle.innerHTML = 'Edit Site Profile';
+    addGridSaveButton.name = 'edit'
     document.getElementById('new-site-input').value = element.Site;
     document.getElementById('new-city-input').value = element.SiteCities;
     let containerElement = document.createElement('div');
@@ -301,7 +318,7 @@ const makeDataGrid = async (sortStyle) => {
         dataGrid.appendChild(otherCitiesBlock);
         dataGrid.appendChild(editButtonDiv);
         even = !even;
-        editButton.addEventListener('click', openEdit.bind(null, element), false);
+        editButton.addEventListener('click', openEdit.bind(null, element, true), false);
     });
 };
 
@@ -325,6 +342,12 @@ getWoeid();
 
 startup()
 
+
+
+
+
+//jQuery Objects
+
 $(document).ready(() => {
 });
 
@@ -334,6 +357,10 @@ $('.grid-item-sister').on('click', () => {
 
 $(".trigger_popup_fricc").click(function(){
     createEditTitle.innerHTML = 'Create Site Profile'
+    addGridSaveButton.name = 'create'
+    addData.edit = false;
+    addData.originSite = '';
+    console.log(addData)
     $('.hover_bkgr_fricc').show();
  });
 
