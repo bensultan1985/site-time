@@ -23,8 +23,6 @@ body {
     min-height: 80vh;
     margin: auto;
     background: rgba(149, 184, 180, 0.89);
-    height: 100vh;
-    overflow-y: scroll;
 }
 
 #add-grid-site {
@@ -56,9 +54,6 @@ body {
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     padding: 20px;
-    /* height: 100vh; */
-    height: 69vh;
-    overflow-y: scroll;
 
 
   }
@@ -275,7 +270,7 @@ body {
     min-height: 100px;
     vertical-align: middle;
     width: 60%;
-    /* position: relative; */
+    position: relative;
     top: 40px;
     border-radius: 8px;
     padding: 15px 5%;
@@ -566,12 +561,3 @@ body {
     color: rgb(51, 91, 138);
 }
 
-#main-window {
-    position: absolute;
-    height: 100vh;
-    overflow: auto;
-}
-
-.stick {
-    position: absolute;
-}

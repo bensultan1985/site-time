@@ -12,6 +12,7 @@ let addGridSaveButtonSister = document.getElementById('add-grid-save-button-sist
 let addGridSaveButton = document.getElementById('add-grid-save-button')
 let addGridCancelButton = document.getElementById('add-grid-cancel-button')
 let createEditTitle = document.getElementById('create-edit-title');
+let addGridContainerSisterAdditions = document.getElementById('add-grid-container-sister-additions')
 
 
 //Init grid's alphabetical order data
@@ -420,6 +421,25 @@ $('#close-new-cities-button').click(function(){
 });
 
 $('#save-new-cities-button').click(function(){
+    additionsInputArray = document.getElementById('new-cities-input').value.split(', ')
+    console.log(additionsInputArray, 'additions array')
+    additionsInputArray.forEach(element => {
+        let item = document.createElement('div');
+        item.innerHTML = element;
+        item.className = 'grid-item';
+        item.addEventListener('click', (e) => {
+            if (e.target.className == 'grid-item') {
+                e.target.className = 'grid-item grid-item-selected';
+                tempOtherCities.push(e.target.innerHTML);
+            } else {
+                e.target.className = 'grid-item';
+                for (let i = 0; i < tempOtherCities.length; i++) {
+                    if (tempOtherCities[i] == e.target.innerHTML) tempOtherCities.splice(i, 1)
+                };
+            };
+        });
+    addGridContainerSister.appendChild(item);
+    });
     $('#push-new-cities').hide();
     $('#open-push-new-cities').show();
 });
