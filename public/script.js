@@ -137,10 +137,8 @@ const initAllCities = async () => {
     console.log(allCitiesArray, 'all of them')
 }
 
-
-const makeSisterGrid = async()=> {
-    console.log(allCitiesArray, 'all')
-    allCitiesArray.forEach(element => {
+const createGrid = (arr) => {
+    arr.forEach(element => {
         let item = document.createElement('div');
         item.innerHTML = element;
         item.className = 'grid-item';
@@ -157,6 +155,11 @@ const makeSisterGrid = async()=> {
         });
     addGridContainerSister.appendChild(item);
     });
+}
+
+const makeSisterGrid = async()=> {
+    console.log(allCitiesArray, 'all')
+    createGrid(allCitiesArray)
 };
 
 const updateIdAndCity = async (getname) => {
@@ -258,6 +261,7 @@ const openEdit = (element, isEdit) => {
     addData.site = element.Site;
     addData.siteCity = element.SiteCities;
     addData.otherCities = element.OtherCities;
+    tempOtherCities = element.OtherCities;
     addData.edit = true;
     addData.originSite = element.Site;
     console.log(addData)
@@ -423,23 +427,7 @@ $('#close-new-cities-button').click(function(){
 $('#save-new-cities-button').click(function(){
     additionsInputArray = document.getElementById('new-cities-input').value.split(', ')
     console.log(additionsInputArray, 'additions array')
-    additionsInputArray.forEach(element => {
-        let item = document.createElement('div');
-        item.innerHTML = element;
-        item.className = 'grid-item';
-        item.addEventListener('click', (e) => {
-            if (e.target.className == 'grid-item') {
-                e.target.className = 'grid-item grid-item-selected';
-                tempOtherCities.push(e.target.innerHTML);
-            } else {
-                e.target.className = 'grid-item';
-                for (let i = 0; i < tempOtherCities.length; i++) {
-                    if (tempOtherCities[i] == e.target.innerHTML) tempOtherCities.splice(i, 1)
-                };
-            };
-        });
-    addGridContainerSister.appendChild(item);
-    });
+    createGrid(additionsInputArray)
     $('#push-new-cities').hide();
     $('#open-push-new-cities').show();
 });

@@ -561,6 +561,10 @@ body {
     border-width: 1.5px;
     margin-right: 4px;
     padding: 5px 15px;
+    outline: none;
+}
+.input-class:focus {
+    box-shadow: 0 0 0 2pt rgb(51, 91, 138);
 }
 
 #create-city-container {
