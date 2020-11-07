@@ -428,6 +428,7 @@ $('#save-new-cities-button').click(function(){
     additionsInputArray = document.getElementById('new-cities-input').value.split(', ')
     console.log(additionsInputArray, 'additions array')
     createGrid(additionsInputArray)
+    document.getElementById('new-cities-input').value = '';
     $('#push-new-cities').hide();
     $('#open-push-new-cities').show();
 });
