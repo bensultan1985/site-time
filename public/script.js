@@ -88,7 +88,6 @@ addGridSaveButtonSite.addEventListener('click', async () => {
 addGridSaveButton.addEventListener('click', async () => {
     addData.site = document.getElementById('new-site-input').value;
     addData.siteCity = document.getElementById('new-city-input').value;
-    console.log(addData, 'final')
     await postData(addData).then(res => console.log(res))
     makeDataGrid('site-desc')
     addData.site = '';
@@ -155,11 +154,10 @@ const createGrid = (arr) => {
         });
     addGridContainerSister.appendChild(item);
     });
-}
+};
 
 const makeSisterGrid = async()=> {
-    console.log(allCitiesArray, 'all')
-    createGrid(allCitiesArray)
+    createGrid(allCitiesArray);
 };
 
 const updateIdAndCity = async (getname) => {
@@ -173,43 +171,6 @@ const updateIdAndCity = async (getname) => {
     });
     return;
 };
-
-
-// const makeSiteGrid = async()=> {
-//     const rawResponse = await fetch('/getdata');
-//     data = await rawResponse.json();
-//     data.Sites.forEach(element=> siteSortedArray.push(element.Site))
-//     siteSortedArray.sort();
-//     for (let i = 0; i < siteSortedArray.length-1; i++) {
-//         if (siteSortedArray[i] == siteSortedArray[i+1]) {
-//             siteSortedArray.splice(i, 1);
-//             i--;
-//         };
-//     };
-//     siteSortedArray.forEach(element => {
-//         let item = document.createElement('div');
-//         item.innerHTML = element;
-//         item.className = 'grid-item-site';
-//         item.addEventListener('click', async(e) => {
-//             if (e.target.className == 'grid-item-site') {
-//                 e.target.className = 'grid-item-site grid-item-selected-site';
-//                 let wholeGrid = document.getElementsByClassName('grid-item-selected-site');
-//                 for (let i = 0; i < wholeGrid.length; i++) {
-//                     if (wholeGrid[i].innerHTML != e.target.innerHTML) {
-//                         wholeGrid[i].className = 'grid-item-site';
-//                     };
-//                 };
-//                 tempSite = e.target.innerHTML;
-//             } else {
-//                 e.target.className = 'grid-item-site';
-//             };
-//         });
-//     addGridContainerSite.appendChild(item);
-//     });
-// };
-
-
-//Data grid sort functions
 
 const makeSort = (sortStyle, arr) => {
     if (sortStyle == 'site-desc') {
@@ -242,18 +203,6 @@ const makeSort = (sortStyle, arr) => {
         cityNameHead.name = 'city-desc';
         siteNameHead.name = 'site-desc';
     };
-
-    if (sortStyle == 'other-cities-asc') {
-        arr = arr.sort((a,b) => {
-           return  a.OtherCities > b.OtherCities;
-        });
-    };
-
-    if (sortStyle == 'other-cities-desc') {
-        arr = arr.sort((a,b) => {
-           return  a.OtherCities < b.OtherCities;
-        });
-    };
     return arr;
 };
 
@@ -264,9 +213,8 @@ const openEdit = (element, isEdit) => {
     tempOtherCities = element.OtherCities;
     addData.edit = true;
     addData.originSite = element.Site;
-    console.log(addData)
     createEditTitle.innerHTML = 'Edit Site Profile';
-    addGridSaveButton.name = 'edit'
+    addGridSaveButton.name = 'edit';
     document.getElementById('new-site-input').value = element.Site;
     document.getElementById('new-city-input').value = element.SiteCities;
     let containerElement = document.createElement('div');
@@ -287,7 +235,7 @@ const makeDataGrid = async (sortStyle) => {
     for (let i = 8; i < dataGrid.childNodes.length; i++) {
         dataGrid.removeChild(dataGrid.childNodes[i]);
         i--;
-    }
+    };
     let even = false;
     const savedData = {};
     const rawResponse = await fetch('/getdata');
@@ -312,7 +260,7 @@ const makeDataGrid = async (sortStyle) => {
             cityBlock.className = 'data-grid-item';
             siteBlock.className = 'data-grid-item';
         } else {
-            editButtonDiv.className = 'data-grid-item data-grid-edit even'
+            editButtonDiv.className = 'data-grid-item data-grid-edit even';
             otherCitiesBlock.className = 'data-grid-item even';
             cityBlock.className = 'data-grid-item even';
             siteBlock.className = 'data-grid-item even';
@@ -340,18 +288,15 @@ const getWoeid = async () => {
 const startup = async() => {
 await initAllCities()
 makeSisterGrid();
-// makeSiteGrid();
 makeDataGrid(siteNameHead.name);
 getWoeid();
 }
 
-startup()
+startup();
 
 
 
-
-
-//jQuery Objects
+//jQuery
 
 $(document).ready(() => {
 });
@@ -373,9 +318,7 @@ $('.popupCloseButton').click(function(){
     $('.hover_bkgr_fricc').hide();
 });
 
-
-
- $("#trigger-other-cities").click(function(){
+$("#trigger-other-cities").click(function(){
      console.log(addData.otherCities)
     let wholeGrid = document.querySelectorAll('.grid-item');
     for (let k = 0; k < wholeGrid.length; k++) {
@@ -393,7 +336,7 @@ $('.popupCloseButton').click(function(){
  });
 
 
- $("#trigger-site").click(function(){
+$("#trigger-site").click(function(){
     let wholeGrid = document.getElementsByClassName('grid-item-site');
     for (let i = 0; i < wholeGrid.length; i++) {
         if (addData.site == wholeGrid[i].innerHTML) {
@@ -405,13 +348,13 @@ $('.popupCloseButton').click(function(){
     $('#add-site-site').show();
  });
 
- $('.close-sub').click(function(){
+$('.close-sub').click(function(){
      $('.hover_bkgr_fricc-sub').hide();
         $('#push-new-cities').hide();
         $('#open-push-new-cities').show();
  });
 
- $('.close-main').click(function(){
+$('.close-main').click(function(){
     $('.hover_bkgr_fricc').hide();
 });
 
@@ -426,7 +369,6 @@ $('#close-new-cities-button').click(function(){
 
 $('#save-new-cities-button').click(function(){
     additionsInputArray = document.getElementById('new-cities-input').value.split(', ')
-    console.log(additionsInputArray, 'additions array')
     createGrid(additionsInputArray)
     document.getElementById('new-cities-input').value = '';
     $('#push-new-cities').hide();

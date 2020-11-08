@@ -27,7 +27,7 @@ body {
     overflow-y: scroll;
 }
 
-#add-grid-site {
+/* #add-grid-site {
     display: block;
     border: solid;
     border-color: rgb(153, 223, 255);
@@ -43,15 +43,13 @@ body {
     min-height: 80vh;
     margin: auto;
     background: rgba(149, 184, 180, 0.89);
-}
+} */
 
 #add-grid-container-sister {
     box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 200px));
     grid-template-rows: 1fr;
-    /* grid-template-areas:
-      ; */
     border-width: 2px;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
@@ -73,19 +71,19 @@ body {
                                     supported by Chrome, Edge, Opera and Firefox */
   }
   
-  #add-grid-container-site {
+  /* #add-grid-container-site {
     box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 300px));
     grid-template-rows: 1fr;
     /* grid-template-areas:
       ; */
-    border-width: 2px;
+    /* border-width: 2px;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     padding: 20px;
 
-  }
+  } */
 
 
 .grid-item {
@@ -113,7 +111,7 @@ body {
     color: rgb(51, 91, 138);
 }
 
-.grid-item-site {
+/* .grid-item-site {
     box-sizing: border-box;
     border: solid;
     background: white;
@@ -136,29 +134,29 @@ body {
     background: rgba(255, 255, 255, 0.911);
     border-color: rgb(51, 91, 138);
     color: rgb(51, 91, 138);
-}
+} */
 
-.grid-item-selected {
+/* .grid-item-selected {
     box-sizing: border-box;
     border-width: 3.5px;
     background: rgb(79, 211, 255);
     background: rgb(179, 236, 255);
     background: rgba(255, 229, 84, 0.788);
     /* background: rgba(173, 216, 230, 0.699); */
-    /* color: white; */
-}
+    /* color: white; 
+} */
 
-.grid-item-selected-site {
+/* .grid-item-selected-site {
     box-sizing: border-box;
     border-width: 3.5px;
     background: rgb(79, 211, 255);
     background: rgb(179, 236, 255);
     background: rgba(255, 229, 84, 0.788);
     /* background: rgba(173, 216, 230, 0.699); */
-    /* color: white; */
-}
+    /* color: white;
+} */
 
-.grid-item-site:hover {
+/* .grid-item-site:hover {
     border-width: 4px;
     background: rgb(231, 213, 231);
     background: rgb(240, 230, 240);
@@ -166,17 +164,16 @@ body {
     background: rgb(255, 255, 219);
     /* border-color: rgb(255, 229, 84, 0.644); */
     /* border-color: rgb(17, 138, 219); */
-    font-size: 17px;
-    /* background: rgba(219, 236, 241, 0.74); */
-}
-.grid-item-site:active {
+    /* font-size: 17px; */
+    /* background: rgba(219, 236, 241, 0.74);
+} */
+/* .grid-item-site:active {
     box-sizing: border-box;
     border-width: 3.5px;
     background: rgb(79, 211, 255);
     background: rgb(179, 236, 255);
     background: rgb(255, 229, 84, 0.644);
-    /* background: rgba(173, 216, 230, 0.699); */
-}
+} */
 
 .grid-item-selected-site:hover {
     box-sizing: border-box;
@@ -194,7 +191,7 @@ body {
     background: rgb(240, 230, 240);
     background: rgb(228, 228, 205);
     background: rgb(255, 255, 219);
-    /* border-width: 3.5px;jjjj */
+    /* border-width: 3.5px; */
     /* border-color: rgb(255, 229, 84, 0.644); */
     /* border-color: rgb(17, 138, 219); */
     /* font-size: 17px; */
@@ -466,11 +463,11 @@ body {
     width: 200px;
 }
 
-#exp-button:hover {
+/* #exp-button:hover {
     box-shadow: 1px 1px 2px rgb(51, 91, 138);
     border-color: rgb(51, 91, 138);
     color: rgb(51, 91, 138);
-}
+} */
 
 #add-site-button-container {
     height: 50px;
