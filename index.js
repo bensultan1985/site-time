@@ -302,7 +302,8 @@ const tempObj = {
 		},{
 			"Name": "Tijuana",
 			"ID": "149361"
-		},{
+		}
+		,{
 			"Name": "Ensenada",
 			"ID": "123253"
 		}, {
@@ -720,11 +721,9 @@ const tempObj = {
 
 app.get('/getdata', async (req, res) => {
     res.send(tempObj);
-    console.log('request made successfully');
 	})
 	
 app.post('/postdata', async (req, res) => {
-	console.log('newpost')
 	console.log(req.body, 'edit?')
 	let addWoeid = true;
 	if (req.body.edit == false) {
@@ -754,7 +753,13 @@ app.post('/postdata', async (req, res) => {
 				// element.Site = req.body.site;
 				// element.SiteCities[0] = req.body.siteCity;
 				// element.OtherCities = req.body.otherCities;
-				console.log(tempObj.Sites)
+				tempObj.WOEID.forEach(element => {
+					if (element.ID == req.body.woeid) addWoeid = false;
+				})
+				if (addWoeid == true) tempObj.WOEID.push({
+					Name: req.body.siteCity,
+					ID: req.body.woeid
+				})
 				res.send('200')
 				return
 			}
@@ -832,11 +837,8 @@ request.get(
 
 app.post('/getstoredwoeid', async (req, res) => {
 	let addWoeid = true;
-	console.log(req.body.city[0])
-	console.log(tempObj.Sites)
 	tempObj.WOEID.forEach(element => {
-		// console.log(req.body.city[0], element.Name)
-		// console.log(tempObj.WOEID)
+		console.log(element)
 		if (element.Name == req.body.city[0]) {
 			res.send({ID: element.ID})
 			addWoeid = false;
