@@ -3,6 +3,8 @@ const path = require('path');
 const fs = require('fs');
 const fetch = require("node-fetch");
 const util = require('util');
+const CryptoJS = require('crypto-js');
+var OAuth = require('oauth');
 
 
 // const server = http.createServer((req, res) => {
@@ -722,27 +724,124 @@ app.get('/getdata', async (req, res) => {
 	})
 	
 app.post('/postdata', async (req, res) => {
+	console.log('newpost')
+	console.log(req.body, 'edit?')
+	let addWoeid = true;
 	if (req.body.edit == false) {
 		tempObj.Sites.push({
 			Site: req.body.site,
 			SiteCities: [req.body.siteCity],
 			OtherCities: req.body.otherCities
 		})
-		console.log(util.inspect(tempObj, {showHidden: false, depth: null}))
-		console.log('request made successfully 1');
+		tempObj.WOEID.forEach(element => {
+			if (element.ID == req.body.woeid) addWoeid = false;
+		})
+		if (addWoeid == true) tempObj.WOEID.push({
+			Name: req.body.siteCity,
+			ID: req.body.woeid
+		})
 		res.send('200')
 	} else {
-		console.log('ben')
-		tempObj.Sites.forEach(element => {
-			if (element.Site == req.body.originSite) {
-				element.Site = req.body.site;
-				element.SiteCities = [req.body.siteCity];
-				element.OtherCities = req.body.otherCities;
-				console.log(util.inspect(tempObj, {showHidden: false, depth: null}))
-				console.log(tempObj, 'test')
+		for (let i = 0; i < tempObj.Sites.length; i++) {
+			if (tempObj.Sites[i].Site == req.body.originSite) {
+				console.log('match')
+				tempObj.Sites.splice(i, 1)
+				tempObj.Sites.push({
+					"Site": req.body.site,
+					"SiteCities": [req.body.siteCity],
+					"OtherCities": req.body.otherCities
+				})
+				// element.Site = req.body.site;
+				// element.SiteCities[0] = req.body.siteCity;
+				// element.OtherCities = req.body.otherCities;
+				console.log(tempObj.Sites)
 				res.send('200')
 				return
 			}
-		})
+		}
 	}
+	// console.log(util.inspect(tempObj.Sites, {showHidden: false, depth: null}))
+	})
+
+		app.post('/postwoeid', async (req, res) => {
+			console.log(req.body)
+var header = {
+    "X-Yahoo-App-Id": "your-app-id"
+};
+var request = new OAuth.OAuth(
+    null,
+    null,
+    'dj0yJmk9ME9BYjhuVkxjSVhyJmQ9WVdrOWJIaHFaakZvV2xFbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTYx',
+    '7d9c9c1bf3181efe2e08579ff0388bb48fb8b2a3',
+    '1.0',
+    null,
+    'HMAC-SHA1',
+    null,
+    header
+);
+request.get(
+    `https://weather-ydn-yql.media.yahoo.com/forecastrss?location=${req.body.test}&format=json`,
+    null,
+    null,
+    function (err, data, result) {
+        if (err) {
+            console.log(err);
+        } else {
+			// console.log(data)
+			res.send(data)
+			return
+        }
+    }
+);
+})
+		
+app.post('/getcity', async (req, res) => {
+			console.log(req.body)
+var header = {
+    "X-Yahoo-App-Id": "your-app-id"
+};
+var request = new OAuth.OAuth(
+    null,
+    null,
+    'dj0yJmk9ME9BYjhuVkxjSVhyJmQ9WVdrOWJIaHFaakZvV2xFbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTYx',
+    '7d9c9c1bf3181efe2e08579ff0388bb48fb8b2a3',
+    '1.0',
+    null,
+    'HMAC-SHA1',
+    null,
+    header
+);
+request.get(
+    `https://weather-ydn-yql.media.yahoo.com/forecastrss?woeid=${req.body.woeid}&format=json`,
+    null,
+    null,
+    function (err, data, result) {
+        if (err) {
+            console.log(err);
+        } else {
+			// console.log(data)
+			res.send(data)
+			return
+        }
+    }
+);
+})
+
+
+
+
+app.post('/getstoredwoeid', async (req, res) => {
+	let addWoeid = true;
+	console.log(req.body.city[0])
+	console.log(tempObj.Sites)
+	tempObj.WOEID.forEach(element => {
+		// console.log(req.body.city[0], element.Name)
+		// console.log(tempObj.WOEID)
+		if (element.Name == req.body.city[0]) {
+			res.send({ID: element.ID})
+			addWoeid = false;
+			return;
+		}
+		return;
+		})
 	})

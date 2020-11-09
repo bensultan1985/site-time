@@ -12,8 +12,12 @@ let addGridSaveButtonSister = document.getElementById('add-grid-save-button-sist
 let addGridSaveButton = document.getElementById('add-grid-save-button')
 let addGridCancelButton = document.getElementById('add-grid-cancel-button')
 let createEditTitle = document.getElementById('create-edit-title');
-let addGridContainerSisterAdditions = document.getElementById('add-grid-container-sister-additions')
-
+let addGridContainerSisterAdditions = document.getElementById('add-grid-container-sister-additions');
+let newWoeidInput = document.getElementById('new-woeid-input');
+let newCityInput = document.getElementById('new-city-input');
+let cityStateCountry = document.getElementById('city-state-country');
+let countryOptions = document.getElementById('country-options');
+let cC = 'AF';
 
 //Init grid's alphabetical order data
 siteNameHead.name = 'site-desc';
@@ -32,6 +36,8 @@ const woeid = {};
 let tempSite = '';
 let tempCity = '';
 let tempOtherCities = [];
+let holdWOEID = '';
+let tempNewCity = '';
 
 //todo: alphabetize otherCities before http post
 const addData = {
@@ -42,6 +48,66 @@ const addData = {
     originSite: '',
     edit: false,
 }
+
+const getWoeidCity = async (data) => {
+    const response = await fetch('/getcity', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    })
+    data = await response.json();
+    if (data.location.woeid == '29334827' || !data.location.woeid || data.location.city == "Ca'") {
+        console.log('no')
+        tempNewCity = data.location.city + ', ' + data.location.region;
+        return
+    } else {
+        cityStateCountry.innerHTML = `${data.location.city}, ${data.location.region}, ${data.location.country}<div style="display: inline-block">&nbsp;&nbsp;  WOEID: ${data.location.woeid}</div>`
+    console.log('data', data)
+    newCityInput.value = data.location.city + ',' + data.location.region;
+    tempNewCity = data.location.city + ',' + data.location.region;
+    console.log(tempNewCity, 'this is temp')
+
+    return;
+    }
+    
+}
+
+
+const postWoied = async (data) => {
+    const response = await fetch('/postwoeid', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    })
+    data = await response.json();
+    if (data.location.woeid == '29334827' || !data.location.woeid || data.location.city == "Ca'") {
+        newWoeidInput.value = 'ID Not found. Enter manually.';
+        cityStateCountry.innerHTML = '';
+        tempNewCity = data.location.city + ',' + data.location.region;
+        return
+    } else {
+    newWoeidInput.value = data.location.woeid;
+    cityStateCountry.innerHTML = `${data.location.city}, ${data.location.region}, ${data.location.country}<div style="display: inline-block">&nbsp;&nbsp;  WOEID: ${data.location.woeid}</div>`
+    // newCityInput.value = data.location.city + ', ' + data.location.region
+    tempNewCity = data.location.city + ',' + data.location.region;
+    return;
+    }
+}
+
 
 //POST JSON data
 const postData = async (data) => {
@@ -62,11 +128,44 @@ const postData = async (data) => {
 
 //Save & Cancel Button Functions
 
+
+const updateEntry = () => {
+    if (newCityInput.value != '') {
+        let str = `"${newCityInput.value}, ${cC}, ${cC} "`
+    console.log(str)
+    postWoied({test: str})
+    } else {
+        let str =  `${newCityInput.value}`
+        postWoied({test: str})
+}
+}
+
+newCityInput.addEventListener('input', () => {
+   updateEntry()
+})
+
+countryOptions.addEventListener('change', () => {
+    let i = countryOptions.selectedIndex;
+    cC = countryOptions.options[i].value;
+    console.log(cC)
+    updateEntry()
+    })
+
+newWoeidInput.addEventListener('input', async () => {
+    console.log(newWoeidInput.value)
+    let focused = document.hasFocus()
+    console.log(focused)
+    if (focused) {
+        await getWoeidCity({woeid: newWoeidInput.value})
+        console.log('has focus')
+    }
+})
+
 addGridSaveButtonSister.addEventListener('click', async () => {
     let containerElement = document.createElement('div');
     addData.otherCities = tempOtherCities;
     addData.site = document.getElementById('new-site-input').value;
-    addData.siteCity = document.getElementById('new-city-input').value;
+    addData.siteCity = newCityInput.value;
     selectedOtherCities.innerHTML = '';
     containerElement.innerHTML = '';
     addData.otherCities.forEach(element => {
@@ -87,7 +186,10 @@ addGridSaveButtonSite.addEventListener('click', async () => {
 
 addGridSaveButton.addEventListener('click', async () => {
     addData.site = document.getElementById('new-site-input').value;
-    addData.siteCity = document.getElementById('new-city-input').value;
+    addData.siteCity = newCityInput.value;
+    console.log(tempNewCity, 'temp city')
+    addData.siteCity = tempNewCity;
+    addData.woeid = newWoeidInput.value;
     await postData(addData).then(res => console.log(res))
     makeDataGrid('site-desc')
     addData.site = '';
@@ -96,8 +198,10 @@ addGridSaveButton.addEventListener('click', async () => {
     addData.originSite = '';
     addData.edit = false;
     document.getElementById('new-site-input').value = '';
-    document.getElementById('new-city-input').value = '';
+    newCityInput.value = '';
     selectedOtherCities.innerHTML = '';
+    $('#lookup-panel').hide();
+    $('#lookup-msg').show();
 })
 
 addGridCancelButton.addEventListener('click', () => {
@@ -105,20 +209,20 @@ addGridCancelButton.addEventListener('click', () => {
     addData.siteCity = '';
     addData.otherCities = [];
     document.getElementById('new-site-input').value = '';
-    document.getElementById('new-city-input').value = '';
+    newCityInput.value = '';
     selectedOtherCities.innerHTML = '';
+    $('#lookup-panel').hide();
+    $('#lookup-msg').show();
 })
 
 
 const initAllCities = async () => {
     const rawResponse = await fetch('/getdata');
     data = await rawResponse.json();
-    data.Sites.forEach(element=> {
-        citySortedArray.push(element.SiteCities[0]);
-        allCitiesArray.push(element.SiteCities[0]);
-        element.OtherCities.forEach(city => {
-            allCitiesArray.push(city)
-        })
+    data.WOEID.forEach(element=> {
+        console.log(element.Name)
+        citySortedArray.push(element.Name);
+        allCitiesArray.push(element.Name);
     });
     allCitiesArray.sort();
     for (let i = 0; i < citySortedArray.length-1; i++) {
@@ -206,17 +310,45 @@ const makeSort = (sortStyle, arr) => {
     return arr;
 };
 
-const openEdit = (element, isEdit) => {
+const getStoredWoeid = async(data) => {
+    console.log(data, 'given stored')
+    const response = await fetch('/getstoredwoeid', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    });
+    newData = await response.json();
+    console.log(newData, 'returned stored')
+    return newData;
+}
+
+const openEdit = async (element, isEdit) => {
+    console.log(element)
+    console.log('editing...')
     addData.site = element.Site;
     addData.siteCity = element.SiteCities;
     addData.otherCities = element.OtherCities;
     tempOtherCities = element.OtherCities;
     addData.edit = true;
     addData.originSite = element.Site;
+    console.log(addData)
+    let editWoeid = await getStoredWoeid({city: element.SiteCities})
+    getWoeidCity({woeid: editWoeid.ID})
+    console.log(editWoeid.ID)
+    addData.woeid = editWoeid.ID
+    newWoeidInput.value = editWoeid.ID;
+    tempNewCity = element.SiteCities;
     createEditTitle.innerHTML = 'Edit Site Profile';
     addGridSaveButton.name = 'edit';
     document.getElementById('new-site-input').value = element.Site;
-    document.getElementById('new-city-input').value = element.SiteCities;
+    newCityInput.value = element.SiteCities;
     let containerElement = document.createElement('div');
     selectedOtherCities.innerHTML = '';
     containerElement.innerHTML = '';
@@ -227,6 +359,7 @@ const openEdit = (element, isEdit) => {
         containerElement.appendChild(innerElement);
         selectedOtherCities.appendChild(containerElement);
     })
+    console.log(addData, 'addData')
     $('.hover_bkgr_fricc').show();
 }
 
@@ -374,3 +507,14 @@ $('#save-new-cities-button').click(function(){
     $('#push-new-cities').hide();
     $('#open-push-new-cities').show();
 });
+
+$('#lookup-button').click(function(){
+    $('#lookup-panel').show()
+    $('#lookup-msg').hide()
+})
+
+$('#close-panel').click(function() {
+    $('#lookup-panel').hide()
+
+    $('#lookup-msg').show()
+})

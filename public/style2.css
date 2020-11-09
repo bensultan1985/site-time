@@ -136,15 +136,15 @@ body {
     color: rgb(51, 91, 138);
 } */
 
-/* .grid-item-selected {
+.grid-item-selected {
     box-sizing: border-box;
     border-width: 3.5px;
     background: rgb(79, 211, 255);
     background: rgb(179, 236, 255);
     background: rgba(255, 229, 84, 0.788);
     /* background: rgba(173, 216, 230, 0.699); */
-    /* color: white; 
-} */
+    /* color: white;  */
+}
 
 /* .grid-item-selected-site {
     box-sizing: border-box;
@@ -367,7 +367,7 @@ body {
     margin: 10px 40px;
     display: grid;
     grid-template-columns: 1fr 1fr 4fr .5fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: repeat(minmax(0px, 200px));
     gap: 0px 0px;
     /* max-width: 1000px; */
   }
@@ -399,15 +399,21 @@ body {
 
 .data-grid-edit {
     vertical-align: bottom;
-    line-height: 5rem;
+    /* line-height: 5rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }
 
 .edit-button {
     
     margin: auto;
     vertical-align: middle;
-    height: 50px;
-    width: 100px;
+    min-height: 30px;
+    /* max-height: 50px; */
+    height: 100%;
+    height: 30px;
+    width: 70px;
     font-size: 14px;
 }
 
@@ -527,22 +533,110 @@ body {
 }
 
 .input-container {
-    width: 50%;
+    width: 70%;
     text-align: left;
     line-height: 30px;
     margin: auto;
 }
 
 .input-label {
-    display: inline;
+    display: inline-block;
     /* text-align: left; */
-    text-align: right;
+    text-align: left;
     /* float: left; */
     /* width: 400px; */
+    max-width: 160px;
+    margin-bottom: 10px;
+}
+
+#country-options {
+    float: right;
+    width: 200px;
+    margin-bottom: 10px;
+    height: 30px;
+    background: white;
+}
+
+#city-state-country {
+    width: 100%;
+}
+
+#add-edit-label {
+    display: block;
+}
+
+#lookup-panel {
+    border: solid;
+    box-shadow: 0 0 0 2pt rgb(51, 91, 138);
+    background: rgb(239, 241, 243);
+    border-color: white;
+    padding: 10px;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+#lookup-panel input {
+    border: solid;
+    border-width: 1px;
+    border-radius: 0px;
+    border-color: black;
+    background: white;
+    height: 16px;
+    padding: 4px;
+    border-width: 1px;
+    box-shadow: none;
+
+}
+
+#lookup-msg {
+    padding: 10px;
+}
+
+#close-panel {
+    width: 40px;
+    padding: 0px 6px;
+    line-height: 14px;
+    height: 14px;
+    border:solid;
+    margin-top: 0px;
+    padding-top: 0px;
+    border-width: 2;
+    border-radius: 25px;
+    box-shadow: 0 0 0 2pt rgb(51, 91, 138);
+    background: white;
+    border-color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+#lookup-button {
+    border: solid;
+    box-shadow: 0 0 0 2pt rgb(51, 91, 138);
+    background: rgb(51, 91, 138);
+    border-color: white;
+    border-radius: 25px;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+#lookup-button:hover {
+    border: solid;
+    box-shadow: 0 0 0 2pt rgb(51, 91, 138);
+    background: white;
+    border-color: rgb(51, 91, 138);
+    border-radius: 25px;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: rgb(51, 91, 138);
+    cursor: pointer;
 }
 
 .input-class {
-    display: inline;
+    display: inline-block;
     text-align: right;
     float: right;
     border: solid;
@@ -552,6 +646,7 @@ body {
     margin-top: 6px;
     padding: 3px;
     max-width: 250px;
+    width: 152px;
     border-color: rgb(51, 91, 138);
     color: rgb(51, 91, 138);
     border-radius: 25px;
