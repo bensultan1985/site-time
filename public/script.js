@@ -133,7 +133,6 @@ const initAllCities = async () => {
             i--;
         };
     };
-    console.log(allCitiesArray, 'all of them')
 }
 
 const createGrid = (arr) => {

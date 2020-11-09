@@ -729,17 +729,13 @@ app.post('/postdata', async (req, res) => {
 			OtherCities: req.body.otherCities
 		})
 		console.log(util.inspect(tempObj, {showHidden: false, depth: null}))
-		console.log('request made successfully 1');
 		res.send('200')
 	} else {
-		console.log('ben')
 		tempObj.Sites.forEach(element => {
 			if (element.Site == req.body.originSite) {
 				element.Site = req.body.site;
 				element.SiteCities = [req.body.siteCity];
 				element.OtherCities = req.body.otherCities;
-				console.log(util.inspect(tempObj, {showHidden: false, depth: null}))
-				console.log(tempObj, 'test')
 				res.send('200')
 				return
 			}
