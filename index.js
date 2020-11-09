@@ -837,6 +837,7 @@ request.get(
 
 app.post('/getstoredwoeid', async (req, res) => {
 	let addWoeid = true;
+	console.log(req.body)
 	tempObj.WOEID.forEach(element => {
 		console.log(element)
 		if (element.Name == req.body.city[0]) {
