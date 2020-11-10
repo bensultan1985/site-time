@@ -519,3 +519,14 @@ $('#close-panel').click(function() {
 
     $('#lookup-msg').show()
 })
+
+
+
+
+//sister add area
+countryOptionsSister.addEventListener('change', () => {
+    let i = countryOptionsSister.selectedIndex;
+    cC = countryOptionsSister.options[i].value;
+    console.log(cC)
+    // updateEntry()
+    })
