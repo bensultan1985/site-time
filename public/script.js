@@ -66,6 +66,7 @@ const getWoeidCity = async (data) => {
     if (data.location.woeid == '29334827' || !data.location.woeid || data.location.city == "Ca'") {
         console.log('no')
         tempNewCity = data.location.city + ', ' + data.location.region;
+        tempNewCity = '';
         return
     } else {
         cityStateCountry.innerHTML = `${data.location.city}, ${data.location.region}, ${data.location.country}<div style="display: inline-block">&nbsp;&nbsp;  WOEID: ${data.location.woeid}</div>`

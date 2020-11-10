@@ -231,7 +231,7 @@ const tempObj = {
 			"Name": "New Delhi",
 			"ID": "28743736"
 		}, {
-			"Name": "New York",
+			"Name": "New York, US",
 			"ID": "2347591"
 		}, {
 			"Name": "Paris",
