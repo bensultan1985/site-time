@@ -146,7 +146,7 @@ body {
     /* color: white;  */
 }
 
-/* .grid-item-selected-site {
+.grid-item-selected-site {
     box-sizing: border-box;
     border-width: 3.5px;
     background: rgb(79, 211, 255);
@@ -154,9 +154,9 @@ body {
     background: rgba(255, 229, 84, 0.788);
     /* background: rgba(173, 216, 230, 0.699); */
     /* color: white;
-} */
+}
 
-/* .grid-item-site:hover {
+.grid-item-site:hover {
     border-width: 4px;
     background: rgb(231, 213, 231);
     background: rgb(240, 230, 240);
@@ -165,15 +165,15 @@ body {
     /* border-color: rgb(255, 229, 84, 0.644); */
     /* border-color: rgb(17, 138, 219); */
     /* font-size: 17px; */
-    /* background: rgba(219, 236, 241, 0.74);
-} */
-/* .grid-item-site:active {
+    background: rgba(219, 236, 241, 0.74);
+}
+.grid-item-site:active {
     box-sizing: border-box;
     border-width: 3.5px;
     background: rgb(79, 211, 255);
     background: rgb(179, 236, 255);
     background: rgb(255, 229, 84, 0.644);
-} */
+}
 
 .grid-item-selected-site:hover {
     box-sizing: border-box;

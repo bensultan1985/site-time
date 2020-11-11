@@ -162,6 +162,41 @@ newWoeidInput.addEventListener('input', async () => {
     }
 })
 
+
+const makeSiteGrid = async()=> {
+    const rawResponse = await fetch('/getdata');
+    data = await rawResponse.json();
+    data.Sites.forEach(element=> siteSortedArray.push(element.Site))
+    siteSortedArray.sort();
+    for (let i = 0; i < siteSortedArray.length-1; i++) {
+        if (siteSortedArray[i] == siteSortedArray[i+1]) {
+            siteSortedArray.splice(i, 1);
+            i--;
+        };
+    };
+    siteSortedArray.forEach(element => {
+        let item = document.createElement('div');
+        item.innerHTML = element;
+        item.className = 'grid-item-site';
+        item.addEventListener('click', async(e) => {
+            if (e.target.className == 'grid-item-site') {
+                e.target.className = 'grid-item-site grid-item-selected-site';
+                let wholeGrid = document.getElementsByClassName('grid-item-selected-site');
+                for (let i = 0; i < wholeGrid.length; i++) {
+                    if (wholeGrid[i].innerHTML != e.target.innerHTML) {
+                        wholeGrid[i].className = 'grid-item-site';
+                    };
+                };
+                tempSite = e.target.innerHTML;
+            } else {
+                e.target.className = 'grid-item-site';
+            };
+        });
+    addGridContainerSite.appendChild(item);
+    });
+};
+
+
 addGridSaveButtonSister.addEventListener('click', async () => {
     let containerElement = document.createElement('div');
     addData.otherCities = tempOtherCities;
