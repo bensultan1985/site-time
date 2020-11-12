@@ -40,7 +40,7 @@ body {
     padding: 10px;
     box-shadow: 2px 3px 4px rgb(197, 197, 197);
     box-sizing: border-box;
-    min-height: 100vh;
+    min-height: 80vh;
     height: 100vh;
     margin: auto;
     background: rgba(149, 184, 180, 0.89);
