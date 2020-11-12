@@ -18,6 +18,15 @@ let newCityInput = document.getElementById('new-city-input');
 let cityStateCountry = document.getElementById('city-state-country');
 let countryOptions = document.getElementById('country-options');
 let cC = 'AF';
+let ocCC = 'AF';
+let ocNewCityInput = document.getElementById('oc-new-city-input')
+let ocCSC = document.getElementById('oc-csc')
+let ocCountryOptions = document.getElementById('oc-country-options')
+let scCC = 'AF';
+let scNewCityInput = document.getElementById('sc-new-city-input')
+let scCSC = document.getElementById('sc-csc')
+let scCountryOptions = document.getElementById('sc-country-options')
+let saveScCitiesButton = document.getElementById('save-sc-cities-button')
 
 //Init grid's alphabetical order data
 siteNameHead.name = 'site-desc';
@@ -33,10 +42,8 @@ const siteSortedArray = [];
 let allCitiesArray = [];
 
 const woeid = {};
-let tempSite = '';
 let tempCity = '';
 let tempOtherCities = [];
-let holdWOEID = '';
 let tempNewCity = '';
 
 //todo: alphabetize otherCities before http post
@@ -81,7 +88,7 @@ const getWoeidCity = async (data) => {
 }
 
 
-const postWoied = async (data) => {
+const postWoeid = async (data) => {
     const response = await fetch('/postwoeid', {
         method: 'POST',
         mode: 'cors',
@@ -134,10 +141,10 @@ const updateEntry = () => {
     if (newCityInput.value != '') {
         let str = `"${newCityInput.value}, ${cC}, ${cC} "`
     console.log(str)
-    postWoied({test: str})
+    postWoeid({test: str})
     } else {
         let str =  `${newCityInput.value}`
-        postWoied({test: str})
+        postWoeid({test: str})
 }
 }
 
@@ -164,9 +171,10 @@ newWoeidInput.addEventListener('input', async () => {
 
 
 const makeSiteGrid = async()=> {
+    addGridContainerSite.innerHTML = '';
     const rawResponse = await fetch('/getdata');
     data = await rawResponse.json();
-    data.Sites.forEach(element=> siteSortedArray.push(element.Site))
+    data.WOEID.forEach(element=> siteSortedArray.push(element.Name))
     siteSortedArray.sort();
     for (let i = 0; i < siteSortedArray.length-1; i++) {
         if (siteSortedArray[i] == siteSortedArray[i+1]) {
@@ -187,7 +195,7 @@ const makeSiteGrid = async()=> {
                         wholeGrid[i].className = 'grid-item-site';
                     };
                 };
-                tempSite = e.target.innerHTML;
+                tempCity = e.target.innerHTML;
             } else {
                 e.target.className = 'grid-item-site';
             };
@@ -201,7 +209,7 @@ addGridSaveButtonSister.addEventListener('click', async () => {
     let containerElement = document.createElement('div');
     addData.otherCities = tempOtherCities;
     addData.site = document.getElementById('new-site-input').value;
-    addData.siteCity = newCityInput.value;
+    // addData.siteCity = newCityInput.value;
     selectedOtherCities.innerHTML = '';
     containerElement.innerHTML = '';
     addData.otherCities.forEach(element => {
@@ -215,16 +223,15 @@ addGridSaveButtonSister.addEventListener('click', async () => {
 
 
 addGridSaveButtonSite.addEventListener('click', async () => {
-    addData.site = tempSite;
-    await updateIdAndCity(addData.site);
-    selectedSite.innerHTML = addData.site + ` (${addData.siteCity})`;
+    addData.siteCity = tempCity;
+    await updateIdAndCity(addData.siteCity);
+    selectedSite.innerHTML = addData.siteCity;
 });
 
 addGridSaveButton.addEventListener('click', async () => {
     addData.site = document.getElementById('new-site-input').value;
-    addData.siteCity = newCityInput.value;
     console.log(tempNewCity, 'temp city')
-    addData.siteCity = tempNewCity;
+    addData.siteCity = [addData.siteCity];
     addData.woeid = newWoeidInput.value;
     await postData(addData).then(res => console.log(res))
     makeDataGrid('site-desc')
@@ -249,10 +256,13 @@ addGridCancelButton.addEventListener('click', () => {
     selectedOtherCities.innerHTML = '';
     $('#lookup-panel').hide();
     $('#lookup-msg').show();
+    clearAllAdd()
 })
 
 
+
 const initAllCities = async () => {
+    allCitiesArray = [];
     const rawResponse = await fetch('/getdata');
     data = await rawResponse.json();
     data.WOEID.forEach(element=> {
@@ -277,6 +287,7 @@ const initAllCities = async () => {
 }
 
 const createGrid = (arr) => {
+    addGridContainerSister.innerHTML = '';
     arr.forEach(element => {
         let item = document.createElement('div');
         item.innerHTML = element;
@@ -382,6 +393,7 @@ const openEdit = async (element, isEdit) => {
     newWoeidInput.value = editWoeid.ID;
     tempNewCity = element.SiteCities;
     createEditTitle.innerHTML = 'Edit Site Profile';
+    selectedSite.innerHTML = element.SiteCities[0]
     addGridSaveButton.name = 'edit';
     document.getElementById('new-site-input').value = element.Site;
     newCityInput.value = element.SiteCities;
@@ -457,6 +469,7 @@ const getWoeid = async () => {
 const startup = async() => {
 await initAllCities()
 makeSisterGrid();
+makeSiteGrid();
 makeDataGrid(siteNameHead.name);
 getWoeid();
 }
@@ -476,9 +489,14 @@ $('.grid-item-sister').on('click', () => {
 
 $(".trigger_popup_fricc").click(function(){
     createEditTitle.innerHTML = 'Create Site Profile'
+    tempOtherCities = [];
+    selectedSite.innerHTML = '';
     addGridSaveButton.name = 'create'
     addData.edit = false;
     addData.originSite = '';
+    addData.siteCity = '';
+    addData.site = '';
+    addData.otherCities = [];
     console.log(addData)
     $('.hover_bkgr_fricc').show();
  });
@@ -508,7 +526,7 @@ $("#trigger-other-cities").click(function(){
 $("#trigger-site").click(function(){
     let wholeGrid = document.getElementsByClassName('grid-item-site');
     for (let i = 0; i < wholeGrid.length; i++) {
-        if (addData.site == wholeGrid[i].innerHTML) {
+        if (addData.siteCity == wholeGrid[i].innerHTML) {
             wholeGrid[i].className = 'grid-item-site grid-item-selected-site';
         } else {
             wholeGrid[i].className = 'grid-item-site';
@@ -521,6 +539,7 @@ $('.close-sub').click(function(){
      $('.hover_bkgr_fricc-sub').hide();
         $('#push-new-cities').hide();
         $('#open-push-new-cities').show();
+        clearAllAdd()
  });
 
 $('.close-main').click(function(){
@@ -536,13 +555,13 @@ $('#close-new-cities-button').click(function(){
     $('#open-push-new-cities').show();
 });
 
-$('#save-new-cities-button').click(function(){
-    additionsInputArray = document.getElementById('new-cities-input').value.split(', ')
-    createGrid(additionsInputArray)
-    document.getElementById('new-cities-input').value = '';
-    $('#push-new-cities').hide();
-    $('#open-push-new-cities').show();
-});
+// $('#save-new-cities-button').click(function(){
+//     additionsInputArray = document.getElementById('new-cities-input').value.split(', ')
+//     createGrid(additionsInputArray)
+//     document.getElementById('new-cities-input').value = '';
+//     $('#push-new-cities').hide();
+//     $('#open-push-new-cities').show();
+// });
 
 $('#lookup-button').click(function(){
     $('#lookup-panel').show()
@@ -559,9 +578,229 @@ $('#close-panel').click(function() {
 
 
 //sister add area
-countryOptionsSister.addEventListener('change', () => {
-    let i = countryOptionsSister.selectedIndex;
-    cC = countryOptionsSister.options[i].value;
-    console.log(cC)
+ocCountryOptions.addEventListener('change', () => {
+    let i = ocCountryOptions.selectedIndex;
+    ocCC = ocCountryOptions.options[i].value;
+    console.log(ocCC)
     // updateEntry()
     })
+
+
+
+
+
+let ocJustAdded = '';
+let ocWoeidJustAdded = '';
+let ocTempCity = '';
+const ocPostWoeid = async (data) => {
+    console.log(data)
+    const response = await fetch('/postwoeid', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    })
+    data = await response.json();
+    console.log(data)
+    if (data.location.woeid == '29334827' || !data.location.woeid) {
+        newWoeidInput.value = 'ID Not found. Enter manually.';
+        ocCSC.innerHTML = '';
+        ocTempNewCity = data.location.city + ',' + data.location.region;
+        return
+    } else {
+    newWoeidInput.value = data.location.woeid;
+    console.log('new')
+    ocJustAdded = data.location.city;
+    ocWoeidJustAdded = data.location.woeid.toString();
+    ocCSC.innerHTML = `${data.location.city}, ${data.location.region}, ${data.location.country}<div style="display: inline-block">&nbsp;&nbsp;  WOEID: ${data.location.woeid}</div>`
+    // newCityInput.value = data.location.city + ', ' + data.location.region
+    ocTempNewCity = data.location.city + ',' + data.location.region;
+    return;
+    }
+}
+
+ocNewCityInput.addEventListener('input', async () => {
+    if (ocNewCityInput.value != '') {
+        let str = `${ocNewCityInput.value}, ${ocCC}, ${ocCC}`
+    console.log(str)
+    ocPostWoeid({test: str})
+    } else {
+        let str =  `${ocNewCityInput.value}`
+        ocPostWoeid({test: str})
+}
+})
+ocCountryOptions.addEventListener('change', async () => {
+    if (ocNewCityInput.value != '') {
+        let str = `${ocNewCityInput.value}, ${ocCC}, ${ocCC}`
+    console.log(str)
+    ocPostWoeid({test: str})
+    } else {
+        let str =  `${ocNewCityInput.value}`
+        ocPostWoeid({test: str})
+}
+})
+
+
+//site add area
+
+scCountryOptions.addEventListener('change', () => {
+    let i = scCountryOptions.selectedIndex;
+    scCC = scCountryOptions.options[i].value;
+    console.log(scCC)
+    // updateEntry()
+    })
+
+
+
+
+let scJustAdded = '';
+let scWoeidJustAdded = '';
+let scTempCity = '';
+const scPostWoeid = async (data) => {
+    console.log(data)
+    const response = await fetch('/postwoeid', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    })
+    data = await response.json();
+    console.log(data)
+    if (data.location.woeid == '29334827' || !data.location.woeid) {
+        newWoeidInput.value = 'ID Not found. Enter manually.';
+        scCSC.innerHTML = '';
+        scTempNewCity = data.location.city + ',' + data.location.region;
+        return
+    } else {
+    newWoeidInput.value = data.location.woeid;
+    console.log('new')
+    scJustAdded = data.location.city;
+    scWoeidJustAdded = data.location.woeid.toString();
+    scCSC.innerHTML = `${data.location.city}, ${data.location.region}, ${data.location.country}<div style="display: inline-block">&nbsp;&nbsp;  WOEID: ${data.location.woeid}</div>`
+    // newCityInput.value = data.location.city + ', ' + data.location.region
+    scTempNewCity = data.location.city + ',' + data.location.region;
+    return;
+    }
+}
+
+scNewCityInput.addEventListener('input', async () => {
+    if (scNewCityInput.value != '') {
+        let str = `${scNewCityInput.value}, ${scCC}, ${scCC}`
+    console.log(str)
+    scPostWoeid({test: str})
+    } else {
+        let str =  `${scNewCityInput.value}`
+        scPostWoeid({test: str})
+}
+})
+
+scCountryOptions.addEventListener('change', async () => {
+    if (scNewCityInput.value != '') {
+        let str = `${scNewCityInput.value}, ${scCC}, ${scCC}`
+    console.log(str)
+    scPostWoeid({test: str})
+    } else {
+        let str =  `${scNewCityInput.value}`
+        scPostWoeid({test: str})
+}
+})
+
+//sc post new WOEID
+const scAddCity = async (data) => {
+    const response = await fetch('/addcity', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+    });
+    return response.json();
+  }
+
+$('#save-sc-cities-button').click(async () => {
+    console.log(scJustAdded)
+    await scAddCity({name: scJustAdded, woeid: scWoeidJustAdded})
+    await initAllCities()
+    scCC = 'AF';
+    scCountryOptions.selectedIndex = 0;
+    makeSiteGrid();
+    makeSisterGrid()
+    // createGrid(additionsInputArray)
+    $('#sc-push-new-cities').hide();
+    $('#sc-open-push-new-cities').show();
+    clearAllAdd()
+});
+
+$('#save-sister-cities-button').click(async() => {
+    console.log(ocJustAdded)
+    await scAddCity({name: ocJustAdded, woeid: ocWoeidJustAdded})
+    await initAllCities()
+    cC = 'AF';
+    ocCountryOptions.selectedIndex = 0;
+    makeSiteGrid()
+    makeSisterGrid();
+    // createGrid(additionsInputArray)
+    $('#push-new-cities').hide();
+    $('#open-push-new-cities').show();
+    clearAllAdd()
+})
+
+
+
+
+$('#sc-open-push-new-cities').click(function(){
+    $('#sc-push-new-cities').show();
+    $('#sc-open-push-new-cities').hide();
+});
+$('#sc-close-new-cities-button').click(function(){
+    $('#sc-push-new-cities').hide();
+    $('#sc-open-push-new-cities').show();
+});
+
+const clearAllAdd = () => {
+scJustAdded = '';
+scWoeidJustAdded = '';
+scTempCity = '';
+ocJustAdded = '';
+ocWoeidJustAdded = '';
+ocTempCity = '';
+tempNewCity = '';
+ocCSC.innerHTML = '';
+scCSC.innerHTML = '';
+ocNewCityInput.value = '';
+scNewCityInput.value = '';
+
+}
+
+$('#close-sister-cities-button').click(() => {
+    $('#push-new-cities').hide();
+    $('#open-push-new-cities').show();
+    cC = 'AF';
+    ocCountryOptions.selectedIndex = 0;
+    clearAllAdd()
+})
+
+$('#close-sc-cities-button').click(() => {
+    $('#sc-push-new-cities').hide();
+    $('#sc-open-push-new-cities').show();
+    scCC = 'AF';
+    scCountryOptions.selectedIndex = 0;
+    clearAllAdd()
+})

@@ -769,7 +769,7 @@ app.post('/postdata', async (req, res) => {
 	})
 
 		app.post('/postwoeid', async (req, res) => {
-			console.log(req.body)
+			console.log(req.body, 'test')
 var header = {
     "X-Yahoo-App-Id": "your-app-id"
 };
@@ -790,6 +790,7 @@ request.get(
     null,
     function (err, data, result) {
         if (err) {
+			console.log('1')
             console.log(err);
         } else {
 			// console.log(data)
@@ -848,3 +849,20 @@ app.post('/getstoredwoeid', async (req, res) => {
 		return;
 		})
 	})
+
+
+
+	app.post('/addcity', async (req, res) => {
+		console.log(req.body)
+		let addWoeid = true;
+			tempObj.WOEID.forEach(element => {
+				if (element.ID == req.body.woeid) addWoeid = false;
+			})
+			if (addWoeid == true) tempObj.WOEID.push({
+				Name: req.body.name,
+				ID: req.body.woeid
+			})
+			tempObj.WOEID.forEach(element => console.log(element))
+			res.send('200')
+		// console.log(util.inspect(tempObj.Sites, {showHidden: false, depth: null}))
+		})

@@ -27,7 +27,7 @@ body {
     overflow-y: scroll;
 }
 
-/* #add-grid-site {
+#add-grid-site {
     display: block;
     border: solid;
     border-color: rgb(153, 223, 255);
@@ -40,10 +40,11 @@ body {
     padding: 10px;
     box-shadow: 2px 3px 4px rgb(197, 197, 197);
     box-sizing: border-box;
-    min-height: 80vh;
+    min-height: 100vh;
+    height: 100vh;
     margin: auto;
     background: rgba(149, 184, 180, 0.89);
-} */
+}
 
 #add-grid-container-sister {
     box-sizing: border-box;
@@ -54,8 +55,9 @@ body {
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     padding: 20px;
+    padding-bottom: 0px;
     /* height: 100vh; */
-    height: 69vh;
+    height: 72%;
     overflow-y: scroll;
 
 
@@ -71,19 +73,21 @@ body {
                                     supported by Chrome, Edge, Opera and Firefox */
   }
   
-  /* #add-grid-container-site {
+  #add-grid-container-site {
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 300px));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 200px));
     grid-template-rows: 1fr;
     /* grid-template-areas:
       ; */
-    /* border-width: 2px;
+    border-width: 2px;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     padding: 20px;
+    height: 72%;
+    overflow-y: scroll;
 
-  } */
+  }
 
 
 .grid-item {
@@ -111,7 +115,7 @@ body {
     color: rgb(51, 91, 138);
 }
 
-/* .grid-item-site {
+.grid-item-site {
     box-sizing: border-box;
     border: solid;
     background: white;
@@ -123,7 +127,7 @@ body {
     min-height: 40px;
     min-width: 150px;
     min-height: 100px;
-    min-width: 300px;
+    min-width: 200px;
     padding-top: 35px;
     text-align: center;
     color: rgb(0, 102, 255);
@@ -134,7 +138,7 @@ body {
     background: rgba(255, 255, 255, 0.911);
     border-color: rgb(51, 91, 138);
     color: rgb(51, 91, 138);
-} */
+}
 
 .grid-item-selected {
     box-sizing: border-box;
@@ -153,11 +157,11 @@ body {
     background: rgb(179, 236, 255);
     background: rgba(255, 229, 84, 0.788);
     /* background: rgba(173, 216, 230, 0.699); */
-    /* color: white;
+    /* color: white; */
 }
 
 .grid-item-site:hover {
-    border-width: 4px;
+    /* border-width: 4px; */
     background: rgb(231, 213, 231);
     background: rgb(240, 230, 240);
     background: rgb(228, 228, 205);
@@ -316,6 +320,11 @@ body {
     font-size: 20px;
     /* margin: 20px; */
     font-weight: bold;
+}
+
+#choose-site-city {
+    margin-top: 20px;
+    text-align: center;
 }
 
 .hover_bkgr_fricc-sub .helper{
@@ -480,10 +489,10 @@ body {
 }
 
 .large-button {
-    height: 50px;
+    height: 20px;
     width: 80px;
     margin-top: 30px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     margin-right: 60px;
 }
 
@@ -491,7 +500,7 @@ body {
     height: 50px;
     width: 80px;
     margin-top: 20px;
-    margin-bottom: 0px;
+    /* margin-bottom: 0px; */
     margin-right: 60px;
 }
 
@@ -660,6 +669,19 @@ body {
 }
 
 #create-city-container {
+    border: solid;
+    border-radius: 25px;
+    max-width: 600px;
+    min-width: 450px;
+    padding: 10px;
+    margin: auto;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.911);
+    border-color: rgb(51, 91, 138);
+    color: rgb(51, 91, 138);
+}
+
+#sc-create-city-container {
     border: solid;
     border-radius: 25px;
     max-width: 600px;
