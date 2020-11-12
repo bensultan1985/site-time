@@ -767,6 +767,17 @@ $('#save-sister-cities-button').click(async () => {
   ocCountryOptions.selectedIndex = 0;
   makeSiteGrid()
   makeSisterGrid();
+  let wholeGrid = document.querySelectorAll('.grid-item');
+  for (let k = 0; k < wholeGrid.length; k++) {
+    wholeGrid[k].className = 'grid-item';
+  }
+  for (let i = 0; i < wholeGrid.length; i++) {
+    for (let j = 0; j < addData.otherCities.length; j++) {
+      if (addData.otherCities[j] == wholeGrid[i].innerHTML) {
+        wholeGrid[i].className = 'grid-item grid-item-selected';
+      }
+    }
+  }
   // createGrid(additionsInputArray)
   $('#push-new-cities').hide();
   $('#open-push-new-cities').show();
